@@ -1,0 +1,8 @@
+---
+- name: install vim editor and dependencies
+  apt:
+    state: latest
+    update_cache: yes
+    install_recommends: no
+    name: [ 'neovim',
+            'git' ]
