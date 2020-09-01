@@ -32,11 +32,10 @@
   become_user: "{{ansible_env.SUDO_USER}}"
   become_flags: '-s /bin/bash'
 
- - name: install tidal startup script
-   get_url:
-     url: https://raw.githubusercontent.com/tidalcycles/vim-tidal/master/bin/tidal
-     dest: "/usr/local/bin/tidal"
-     mode: '0755'
-     owner: root
-     group: root
-
+- name: install tidal startup script
+  get_url:
+    url: https://raw.githubusercontent.com/tidalcycles/vim-tidal/master/bin/tidal
+    dest: "/usr/local/bin/tidal"
+    mode: '0755'
+    owner: root
+    group: root
