@@ -1,5 +1,6 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 Plug 'tidalcycles/vim-tidal'
 call plug#end()
 
 let g:tidal_target = "terminal"
+filetype plugin on
