@@ -1,5 +1,10 @@
 ---
 
+- name: check if tidalvim is already installed
+  stat:
+    path: /usr/local/bin/tidal
+  register: tidalvim
+
 - block:
   - name: create required neovim and Plug directories
     file:
@@ -27,15 +32,23 @@
   - name: install tidal-vim plugin
     shell: nvim +Silent +VimEnter +PlugInstall +qall
 
+  when: tidalvim.stat.islnk is not defined
   become: yes
   become_method: su
   become_user: "{{ansible_env.SUDO_USER}}"
   become_flags: '-s /bin/bash'
 
-- name: install tidal startup script
-  get_url:
-    url: https://raw.githubusercontent.com/tidalcycles/vim-tidal/master/bin/tidal
-    dest: "/usr/local/bin/tidal"
-    mode: '0755'
-    owner: root
-    group: root
+- name: set up tidal symlinks in the PATH
+  make:
+    chdir: /home/{{ansible_env.SUDO_USER}}/.vim/plugged/vim-tidal/
+    target: install
+  when: tidalvim.stat.islnk is not defined
+
+- name: Remove tidalvim symlink (uses tmux, we don't need it)
+  file:
+    path: /usr/local/bin/tidalvim
+    state: absent
+
+- debug:
+    msg: "/usr/local/bin/tidalvim already exists, doing nothing"
+  when: tidalvim.stat.islnk is defined
