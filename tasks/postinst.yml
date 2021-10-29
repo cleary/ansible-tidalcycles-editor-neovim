@@ -48,11 +48,11 @@
     state: link
   when: tidalvim.stat.islnk is not defined
 
-- name: "configure mutable-instruments for {{ editor }}"
-  include_role:
-    name: roles/ugens-mi
+- include_role:
+    name: "roles/ugens-{{ item }}"
   vars:
     editor: "{{ neovim.editor }}"
+  with_items: "{{ sc_ugens }}"
   when: sc_ugens is defined and "mutable-instruments" in sc_ugens
 
 - debug:
