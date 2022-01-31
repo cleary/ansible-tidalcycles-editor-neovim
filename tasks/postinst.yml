@@ -10,6 +10,7 @@
       state: directory
     with_items:
       - "/home/{{ansible_env.SUDO_USER}}/.config/nvim"
+      - "/home/{{ansible_env.SUDO_USER}}/.config/nvim/plugged"
       - "/home/{{ansible_env.SUDO_USER}}/.local/share/nvim/site/autoload"
 
   - name: get vim-plug plugin manager
