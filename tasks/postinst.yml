@@ -3,11 +3,6 @@
 - set_fact:
     boottidal_hs: "/home/{{ansible_env.SUDO_USER}}/.config/nvim/plugged/vim-tidal/Tidal.ghci"
 
-- name: check if tidalvim is already installed
-  stat:
-    path: /usr/local/bin/tidal
-  register: tidalvim
-
 - block:
   - name: create required neovim and Plug directories
     file:
@@ -35,7 +30,6 @@
   - name: install tidal-vim plugin
     shell: nvim +Silent +VimEnter +PlugInstall +qall
 
-  when: tidalvim.stat.islnk is not defined
   become: yes
   become_method: su
   become_user: "{{ansible_env.SUDO_USER}}"
@@ -46,7 +40,6 @@
     src: /home/{{ansible_env.SUDO_USER}}/.config/nvim/plugged/vim-tidal/bin/tidal
     dest: /usr/local/bin/tidal
     state: link
-  when: tidalvim.stat.islnk is not defined
 
 - include_role:
     name: "roles/ugens-{{ item }}"
