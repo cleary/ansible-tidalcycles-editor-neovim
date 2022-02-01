@@ -48,7 +48,3 @@
     editor: "{{ neovim.editor }}"
   with_items: "{{ sc_ugens }}"
   when: sc_ugens is defined
-
-- debug:
-    msg: "/usr/local/bin/tidal already exists, doing nothing"
-  when: tidalvim.stat.islnk is defined
