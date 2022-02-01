@@ -38,7 +38,7 @@
 
 - name: set up tidal symlink in the PATH
   file:
-    src: /home/{{ansible_env.SUDO_USER}}/.config/nvim/plugged/vim-tidal/bin/tidal
+    src: /home/{{ansible_env.SUDO_USER}}/.local/share/nvim/plugged/vim-tidal/bin/tidal
     dest: /usr/local/bin/tidal
     state: link
 
