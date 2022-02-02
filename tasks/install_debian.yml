@@ -1,5 +1,5 @@
 ---
-- name: install vim editor and dependencies
+- name: install neovim editor and dependencies
   apt:
     state: latest
     update_cache: yes
